@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de monedas</title>
+</head>
+<body>
+<div class="container">
+    
+        <header>
+            <h1>Convertidor de pesos a dólar oficial y paralelos</h1>
+        </header>
+        <main>
+        <label for="lista-monedas"></label>
+        <select id="monedas-uno" name="lista-monedas">
+          <option value="dólar oficial">Dólar oficial</option>
+          <option value="dólar blue">Dólar blue</option>
+          <option value="dólar bolsa">Dólar bolsa</option>
+          <option value="dólar cripto">Dólar cripto</option>
+        </select>
+
+         <input id="cantidad-uno" type="number" placeholder="$1">
+ 
+         <button id="convertir">convertir</button>
+
+         <input id="resultado" type="text" placeholder="Resultado" >
+     
+
+    
+       </main>
+    
+       
+       <footer>
+        <p>developed by Fernando Soria</p>
+    </footer>
+
+</div>
+       
+ 
+
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            background-color: rgb(180, 242, 250);
+            font-family: sans-serif;
+        }
+        
+       main{
+        text-align: center;
+       }
+       
+        h1{
+            text-align: center;
+            padding-bottom: 2rem;
+            margin-top: 2rem;
+        }
+      
+        input{
+            padding: .5rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            border: 0;
+            background-color: rgb(100, 207, 221);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1rem;
+            
+        }
+
+        #monedas-uno{
+            padding: .5rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            border: 0;
+            border-radius: 10px;
+            background-color: rgb(100, 207, 221);
+            font-size: 1rem;
+        }
+        button{
+            padding: .5rem;
+            background-color: rgb(63, 211, 33);
+            border-radius: 10px;
+            border: 0;
+            color: white;
+            cursor: pointer;
+            
+        }
+        button:hover{
+            background-color:rgb(152, 230, 137) ;
+            color: rgb(11, 12, 11);
+        }
+
+        footer{
+            background-color: rgba(0, 0, 0, 0.822);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            font-size: 1.3rem;
+           
+        }
+        footer p{
+            background-color: transparent;
+            color:  rgba(255, 254, 254, 0.315);
+            font-family: monospace;
+        }
+
+        .container{
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto ;
+        }
+
+        @media screen and (max-width: 787px) {
+           
+           main{ 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+            
+        }
+        input{
+            font-size: 1.5rem;
+            padding-left: 3.5rem ;
+            padding-right: 3.5rem;
+        }
+        #monedas-uno{
+            padding: .8rem;
+            padding-left: 3rem;
+            padding-right: 3rem;
+            font-size: 1.6rem;
+        }
+        button{
+            padding: 1rem;
+            font-size: 1.3rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        header{
+            margin-top: 5rem;
+        }
+        header h1{
+            font-size: 3.5rem;
+        }
+
+        footer p{
+            font-size: 1.8rem;
+        }
+    }
+
+    </style>
+
+    <script>
+
+    
+
+
+
+let inputMonedasUno = document.querySelector('#monedas-uno');
+let inputCantidad = document.querySelector('#cantidad-uno');
+let inputResultado = document.querySelector('#resultado');
+let botonConvertir = document.querySelector('#convertir');
+
+botonConvertir.addEventListener('click', () => {
+    let dolarOficial = 966;
+    let dolarBlue = 1350;
+    let dolarBolsa = 1280;
+    let dolarCripto = 1300;
+
+    // Convertir el valor de inputCantidad a número
+    let cantidad = parseFloat(inputCantidad.value);
+
+    if (isNaN(cantidad)) {
+        alert('Ingrese una cantidad válida');
+        return;
+    }
+
+    let resultado;
+
+    // Determinar el tipo de cambio según la selección
+    switch (inputMonedasUno.value) {
+        case 'dólar oficial':
+            resultado = cantidad / dolarOficial;
+            break;
+        case 'dólar blue':
+            resultado = cantidad / dolarBlue;
+            break;
+        case 'dólar bolsa':
+            resultado = cantidad / dolarBolsa;
+            break;
+        case 'dólar cripto':
+            resultado = cantidad / dolarCripto;
+            break;
+        default:
+            alert('Ingrese una opción válida');
+            return;
+    }
+
+    // Redondear el resultado y asignarlo al campo de resultado
+    inputResultado.value = Math.round(resultado) + ' USD';
+}); 
+
+     
+
+
+
+    </script>
+    
+</body>
+</html>
+
