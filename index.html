@@ -25,6 +25,8 @@
          <button id="convertir">convertir</button>
 
          <input id="resultado" type="text" placeholder="Resultado" >
+
+         <div class="dataUsd"></div>
      
 
     
@@ -113,6 +115,19 @@
             min-height: 100vh;
             display: grid;
             grid-template-rows: auto 1fr auto ;
+        }
+
+        .dataUsd{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 10rem;
+            font-size: 1.5rem;
+    
+        }
+        .dataUsd p {
+            padding: .5rem;
+            min-width: 100%;
         }
 
         @media screen and (max-width: 787px) {
@@ -208,12 +223,34 @@ let inputMonedasUno = document.querySelector('#monedas-uno');
 let inputCantidad = document.querySelector('#cantidad-uno');
 let inputResultado = document.querySelector('#resultado');
 let botonConvertir = document.querySelector('#convertir');
+let dataUsd = document.querySelector('.dataUsd');
+
+ fetch("https://dolarapi.com/v1/dolares")
+  .then(response => response.json())
+  .then(data => data.forEach((info) => {
+    const content = document.createElement('div');
+    content.innerHTML = `
+    <p>${info.nombre} compra ${info.compra} venta ${info.venta}</p>
+    `
+    dataUsd.append(content);
+  }) );
+ 
 
 botonConvertir.addEventListener('click', () => {
-    let dolarOficial = 966;
-    let dolarBlue = 1350;
-    let dolarBolsa = 1280;
-    let dolarCripto = 1300;
+
+    fetch("https://dolarapi.com/v1/dolares")
+  .then(response => response.json())
+  .then(data =>  {
+    let dolares = data;
+
+    console.log(dolares);
+    
+     
+     
+    let dolarOficial = dolares[0].venta;
+    let dolarBlue = dolares[1].venta ;
+    let dolarBolsa = dolares[3].venta;
+    let dolarCripto = dolares[5].venta;
 
     // Convertir el valor de inputCantidad a número
     let cantidad = parseFloat(inputCantidad.value);
@@ -247,6 +284,10 @@ botonConvertir.addEventListener('click', () => {
     // Redondear el resultado y asignarlo al campo de resultado
     inputResultado.value = Math.round(resultado) + ' USD';
 }); 
+  })
+   
+
+   
 
      
 
